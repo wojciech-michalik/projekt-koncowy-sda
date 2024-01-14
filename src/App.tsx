@@ -61,8 +61,6 @@ function App() {
 
 	return (
 		<>
-			<h1>Panel zarządzania pracownikami</h1>
-			<hr className='dividerSolid'></hr>
 			<Table data={data}></Table>
 		</>
 	);

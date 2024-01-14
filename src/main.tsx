@@ -19,7 +19,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<div className='container mt-5'>
+		<div className='mx-0'>
 			<RouterProvider router={router} />
 		</div>
 	</React.StrictMode>

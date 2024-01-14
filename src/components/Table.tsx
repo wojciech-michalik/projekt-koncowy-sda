@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Employee, EmployeeStatus } from '../App';
 import { useState } from 'react';
+import SideMenu from './SideMenu';
 
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
@@ -32,36 +33,43 @@ export function Table(props: { data: Employee[] }) {
 
 	return (
 		<>
-			<div className='mb-3'>
-				<input
-					onKeyUp={handleSearchType}
-					className='form-control'
-					type='search'
-					placeholder='Wpisz dane pracownika...'
-				/>
+			<div className='row'>
+				<SideMenu />
+				<div className='container col ps-4 mt-4'>
+					<h1>Lista pracowników</h1>
+					<hr className='dividerSolid'></hr>
+					<div className='mb-3'>
+						<input
+							onKeyUp={handleSearchType}
+							className='form-control'
+							type='search'
+							placeholder='Wpisz dane pracownika...'
+						/>
+					</div>
+					<table className='table table-striped'>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Imię</th>
+								<th>Nazwisko</th>
+								<th>Pensja</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							{filteredData.map(item => (
+								<tr className='clickable' key={item.id} onClick={event => handleRowClick(event, item)}>
+									<td>{item.id}</td>
+									<td>{item.firstname}</td>
+									<td>{item.lastname}</td>
+									<td>{item.salary}</td>
+									<td>{renderStatus(item.status)}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<table className='table table-striped'>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Imię</th>
-						<th>Nazwisko</th>
-						<th>Pensja</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredData.map(item => (
-						<tr className='clickable' key={item.id} onClick={event => handleRowClick(event, item)}>
-							<td>{item.id}</td>
-							<td>{item.firstname}</td>
-							<td>{item.lastname}</td>
-							<td>{item.salary}</td>
-							<td>{renderStatus(item.status)}</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
 		</>
 	);
 }
