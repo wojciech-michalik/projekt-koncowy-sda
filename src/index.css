@@ -15,3 +15,7 @@
 .clickable {
 	cursor: pointer;
 }
+
+.dividerSolid {
+	border-top: 3px solid #bbb;
+}
