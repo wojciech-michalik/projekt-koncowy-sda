@@ -15,7 +15,7 @@ export interface Employee {
 	phonenumber: string;
 }
 
-export type EmployeeStatus = 'nieobecny' | 'dostępny';
+export type EmployeeStatus = 'zdalnie' | 'dostępny' | 'l4';
 
 export const mockData: Employee[] = [
 	{
@@ -23,7 +23,7 @@ export const mockData: Employee[] = [
 		firstname: 'Jan',
 		lastname: 'Kowalski',
 		salary: 5000,
-		status: 'nieobecny',
+		status: 'zdalnie',
 		birthdate: new Date('1990-01-01'),
 		address: 'Warszawska 12',
 		city: 'Wrocław',
@@ -47,7 +47,7 @@ export const mockData: Employee[] = [
 		firstname: 'Bartosz',
 		lastname: 'Michalski',
 		salary: 15000,
-		status: 'dostępny',
+		status: 'l4',
 		birthdate: new Date('1994-02-23'),
 		address: 'Rybnicka 15',
 		city: 'Gliwice',
