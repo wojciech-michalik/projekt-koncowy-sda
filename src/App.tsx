@@ -42,6 +42,18 @@ export const mockData: Employee[] = [
 		postalcode: '50-000',
 		phonenumber: '321321321',
 	},
+	{
+		id: '3',
+		firstname: 'Bartosz',
+		lastname: 'Michalski',
+		salary: 15000,
+		status: 'dostępny',
+		birthdate: new Date('1994-02-23'),
+		address: 'Rybnicka 15',
+		city: 'Gliwice',
+		postalcode: '44-100',
+		phonenumber: '423121321',
+	},
 ];
 
 function App() {

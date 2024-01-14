@@ -65,9 +65,12 @@ export function Details() {
 					Numer telefonu
 				</label>
 				<input className='form-control' type='text' id='phonenumber' value={data.phonenumber} readOnly />
-				<Link to='/' className='mt-4 btn btn-primary'>
-					Wróć do poprzedniej strony
-				</Link>
+				<div className='row'>
+					<Link to='/' className='m-4 btn btn-primary col'>
+						Wróć do poprzedniej strony
+					</Link>
+					<button className='m-4 btn btn-primary col'>Edytuj dane pracownika</button>
+				</div>
 			</div>
 		</>
 	);
