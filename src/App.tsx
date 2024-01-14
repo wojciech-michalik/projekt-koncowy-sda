@@ -1,9 +1,13 @@
 import './App.css';
+import Table from './components/Table.jsx';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 function App() {
 	return (
 		<>
-			<h1>Workers</h1>
+			<div className='container'>
+				<Table />
+			</div>
 		</>
 	);
 }
