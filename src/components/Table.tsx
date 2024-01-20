@@ -7,30 +7,6 @@ export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
 	const [sortDirection, setSortDirection] = useState('none');
 
-	// const handleSort = key => {
-	// 	let direction = 'ascending';
-	// 	if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-	// 		direction = 'descending';
-	// 	}
-	// 	setSortConfig({ key, direction });
-	// };
-
-	// const sortedData = React.useMemo(() => {
-	// 	let sortableItems = [...filteredData];
-	// 	if (sortConfig.key !== null) {
-	// 		sortableItems.sort((a, b) => {
-	// 			if (a[sortConfig.key] < b[sortConfig.key]) {
-	// 				return sortConfig.direction === 'ascending';
-	// 			}
-	// 			if (a[sortConfig.key] > b[sortConfig.key]) {
-	// 				return sortConfig.direction === 'descending';
-	// 			}
-	// 			return 0;
-	// 		});
-	// 	}
-	// 	return sortableItems;
-	// }, [filteredData, sortConfig]);
-
 	const sortAsc = (a: Employee, b: Employee): number => {
 		if (a.lastname > b.lastname) {
 			return 1;
