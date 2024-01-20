@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom';
 import SideMenu from '../components/SideMenu';
+import { Employee } from '../HomePage';
 
 export function AddPage() {
+const makeEmployee = (formData: FormData): Employee => {
+    
+}
+
+	const handleSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+		console.log(formData);
+		formData.forEach(data => console.log(data));
+	};
+
 	return (
 		<>
 			<div className='container-fluid'>
@@ -9,71 +22,76 @@ export function AddPage() {
 					<SideMenu />
 					<div className='col mt-4 pe-4 ps-4'>
 						<h1>Dodanie nowego pracownika</h1>
-						<hr className='dividerSolid'></hr>
-						<div className='container p-4 border rounded'>
-							<div className='mb-3 row'>
-								<div className='col'>
-									<label htmlFor='firstname' className='form-label'>
-										Imię
-									</label>
-									<input className='form-control' type='text' id='firstname' readOnly />
+						<form onSubmit={handleSubmit}>
+							<hr className='dividerSolid'></hr>
+							<div className='container p-4 border rounded'>
+								<div className='mb-3 row'>
+									<div className='col'>
+										<label htmlFor='firstname' className='form-label'>
+											Imię
+										</label>
+										<input className='form-control' type='text' id='firstname' name="firstname"/>
+									</div>
+									<div className='col'>
+										<label htmlFor='lastname' className='form-label col'>
+											Nazwisko
+										</label>
+										<input className='form-control col' type='text' id='lastname'
+                                        name='lastname' />
+									</div>
 								</div>
-								<div className='col'>
-									<label htmlFor='lastname' className='form-label col'>
-										Nazwisko
-									</label>
-									<input className='form-control col' type='text' id='lastname' readOnly />
+								<div className='mb-3 row'>
+									<div className='col'>
+										<label htmlFor='salary' className='form-label'>
+											Pensja
+										</label>
+										<input className='form-control' type='text' id='salary'name='salary' />
+									</div>
+									{/* <div className='col'>
+										<label htmlFor='status' className='form-label'>
+											Status pracownika
+										</label>
+										<input className='form-control' type='text' id='status' name='status' />
+									</div> */}
 								</div>
-							</div>
-							<div className='mb-3 row'>
-								<div className='col'>
-									<label htmlFor='salary' className='form-label'>
-										Pensja
-									</label>
-									<input className='form-control' type='text' id='salary' readOnly />
-								</div>
-								<div className='col'>
-									<label htmlFor='status' className='form-label'>
-										Status pracownika
-									</label>
-									<input className='form-control' type='text' id='status' readOnly />
-								</div>
-							</div>
-							<div className='mb-3 row'>
-								<div className='col'>
-									<label htmlFor='birthdate' className='form-label'>
-										Data urodzenia
-									</label>
-									<input className='form-control' type='text' id='birthdate' readOnly />
-								</div>
-								<div className='col'>
-									<label htmlFor='address' className='form-label'>
-										Miejsce zamieszkania
-									</label>
-									<input className='form-control' type='text' id='address' readOnly />
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col'>
-									<label htmlFor='postalcode' className='form-label'>
-										Kod pocztowy
-									</label>
-									<input className='form-control' type='text' id='postalcode' readOnly />
-								</div>
-								<div className='col'>
-									<label htmlFor='phonenumber' className='form-label'>
-										Numer telefonu
-									</label>
-									<input className='form-control' type='text' id='phonenumber' readOnly />
+								<div className='mb-3 row'>
+									<div className='col'>
+										<label htmlFor='birthdate' className='form-label'>
+											Data urodzenia
+										</label>
+										<input className='form-control' type='text' id='birthdate' name='birthdate' />
+									</div>
+									<div className='col'>
+										<label htmlFor='address' className='form-label'>
+											Miejsce zamieszkania
+										</label>
+										<input className='form-control' type='text' id='address' name='address' />
+									</div>
 								</div>
 								<div className='row'>
-									<Link to='/' className='m-4 btn btn-primary col'>
-										Wróć do poprzedniej strony
-									</Link>
-									<button className='m-4 btn btn-primary col'>Edytuj dane pracownika</button>
+									<div className='col'>
+										<label htmlFor='postalcode' className='form-label'>
+											Kod pocztowy
+										</label>
+										<input className='form-control' type='text' id='postalcode' name='postalcode' />
+									</div>
+									<div className='col'>
+										<label htmlFor='phonenumber' className='form-label'>
+											Numer telefonu
+										</label>
+										<input className='form-control' type='text' id='phonenumber' name='phonenumber' />
+									</div>
+									<div className='row'>
+										<Link to='/' className='m-4 btn btn-primary col'>
+											Wróć do poprzedniej strony
+										</Link>
+										<button type='submit' className='m-4 btn btn-primary col'>
+											Dodaj nowego pracownika
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

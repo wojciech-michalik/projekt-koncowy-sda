@@ -96,7 +96,7 @@ export function Table(props: { data: Employee[] }) {
 
 					<div className='col ps-4 mt-4'>
 						<h1>Lista pracowników</h1>
-						<div className='d-flex justify-content-end'>
+						<div className='d-flex justify-content-end me-1'>
 							<Link to='/add' className='btn-success btn btn-sm'>
 								Dodaj pracownika
 							</Link>
