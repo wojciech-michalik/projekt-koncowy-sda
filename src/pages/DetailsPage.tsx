@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Employee } from '../App';
-import SideMenu from './SideMenu';
+import { Employee } from '../HomePage';
+import SideMenu from '../components/SideMenu';
 
 export function Details() {
 	const location = useLocation();

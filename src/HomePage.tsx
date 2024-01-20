@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css';
+import './HomePage.css';
 import { Table } from './components/Table';
 
 export interface Employee {
@@ -56,7 +56,7 @@ export const mockData: Employee[] = [
 	},
 ];
 
-function App() {
+function HomePage() {
 	const [data] = useState(mockData);
 
 	return (
@@ -66,4 +66,4 @@ function App() {
 	);
 }
 
-export default App;
+export default HomePage;

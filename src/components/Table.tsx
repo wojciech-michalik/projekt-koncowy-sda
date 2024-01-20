@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Employee, EmployeeStatus } from '../App';
+import { Employee, EmployeeStatus } from '../HomePage';
 import { useState } from 'react';
 import SideMenu from './SideMenu';
 
