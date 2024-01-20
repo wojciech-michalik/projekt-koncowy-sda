@@ -20,18 +20,6 @@ export type EmployeeStatus = 'zdalnie' | 'dostępny' | 'l4';
 export const mockData: Employee[] = [
 	{
 		id: '1',
-		firstname: 'Jan',
-		lastname: 'Kowalski',
-		salary: 5000,
-		status: 'zdalnie',
-		birthdate: new Date('1990-01-01'),
-		address: 'Warszawska 12',
-		city: 'Wrocław',
-		postalcode: '30-130',
-		phonenumber: '123123123',
-	},
-	{
-		id: '2',
 		firstname: 'Adam',
 		lastname: 'Nowak',
 		salary: 10000,
@@ -43,9 +31,9 @@ export const mockData: Employee[] = [
 		phonenumber: '321321321',
 	},
 	{
-		id: '3',
+		id: '2',
 		firstname: 'Bartosz',
-		lastname: 'Michalski',
+		lastname: 'Adamski',
 		salary: 15000,
 		status: 'l4',
 		birthdate: new Date('1994-02-23'),
@@ -53,6 +41,18 @@ export const mockData: Employee[] = [
 		city: 'Gliwice',
 		postalcode: '44-100',
 		phonenumber: '423121321',
+	},
+	{
+		id: '3',
+		firstname: 'Jan',
+		lastname: 'Kowalski',
+		salary: 5000,
+		status: 'zdalnie',
+		birthdate: new Date('1990-01-01'),
+		address: 'Warszawska 12',
+		city: 'Wrocław',
+		postalcode: '30-130',
+		phonenumber: '123123123',
 	},
 ];
 

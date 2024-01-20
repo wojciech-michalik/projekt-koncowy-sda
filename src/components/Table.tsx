@@ -5,6 +5,69 @@ import SideMenu from './SideMenu';
 
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
+	const [sortDirection, setSortDirection] = useState('none');
+
+	// const handleSort = key => {
+	// 	let direction = 'ascending';
+	// 	if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+	// 		direction = 'descending';
+	// 	}
+	// 	setSortConfig({ key, direction });
+	// };
+
+	// const sortedData = React.useMemo(() => {
+	// 	let sortableItems = [...filteredData];
+	// 	if (sortConfig.key !== null) {
+	// 		sortableItems.sort((a, b) => {
+	// 			if (a[sortConfig.key] < b[sortConfig.key]) {
+	// 				return sortConfig.direction === 'ascending';
+	// 			}
+	// 			if (a[sortConfig.key] > b[sortConfig.key]) {
+	// 				return sortConfig.direction === 'descending';
+	// 			}
+	// 			return 0;
+	// 		});
+	// 	}
+	// 	return sortableItems;
+	// }, [filteredData, sortConfig]);
+
+	const sortAsc = (a: Employee, b: Employee): number => {
+		if (a.lastname > b.lastname) {
+			return 1;
+		}
+		if (a.lastname < b.lastname) {
+			return -1;
+		}
+		return 0;
+	};
+
+	const sortDesc = (a: Employee, b: Employee): number => {
+		if (a.lastname < b.lastname) {
+			return 1;
+		}
+		if (a.lastname > b.lastname) {
+			return -1;
+		}
+		return 0;
+	};
+
+	const handleSortClick = (event: React.MouseEvent, key: keyof Employee): void => {
+		event.preventDefault();
+		let sortedData = [...filteredData];
+		if (sortDirection === 'none') {
+			setSortDirection('asc');
+			sortedData = sortedData.sort((a, b) => sortAsc(a, b, key));
+		} else if (sortDirection === 'asc') {
+			setSortDirection('desc');
+			sortedData = sortedData.sort((a, b) => sortDesc(a, b, key));
+		} else {
+			setSortDirection('none');
+			sortedData = props.data;
+		}
+
+		setFilteredData([...sortedData]);
+	};
+
 	const navigate = useNavigate();
 	const renderStatus = (status: EmployeeStatus): string => {
 		switch (status) {
@@ -53,10 +116,18 @@ export function Table(props: { data: Employee[] }) {
 						<table className='table table-striped'>
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Imię</th>
-									<th>Nazwisko</th>
-									<th>Pensja</th>
+									<th className='clickable' onClick={event => handleSortClick(event, 'id')}>
+										ID
+									</th>
+									<th className='clickable' onClick={event => handleSortClick(event, 'firstname')}>
+										Imię
+									</th>
+									<th className='clickable' onClick={event => handleSortClick(event, 'lastname')}>
+										Nazwisko
+									</th>
+									<th className='clickable' onClick={event => handleSortClick(event, 'salary')}>
+										Pensja
+									</th>
 									<th>Status</th>
 									<th>Szczegółowe dane</th>
 								</tr>
