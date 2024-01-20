@@ -3,16 +3,27 @@ import SideMenu from '../components/SideMenu';
 import { Employee } from '../HomePage';
 
 export function AddPage() {
-const makeEmployee = (formData: FormData): Employee => {
-    
-}
+	const makeEmployee = (formData: FormData): Employee => {
+		return {
+			id: Date.now().toString(),
+			firstname: formData.get('firstname') as string,
+			lastname: formData.get('lastname') as string,
+			birthdate: new Date(formData.get('birthdate') as string),
+			phonenumber: formData.get('phonenumber') as string,
+			address: formData.get('address') as string,
+			city: formData.get('city') as string,
+			postalcode: formData.get('postalcode') as string,
+			salary: +(formData.get('salary') as string),
+			status: 'dostępny',
+		};
+	};
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
-		console.log(formData);
-		formData.forEach(data => console.log(data));
+		const newEmployee = makeEmployee(formData);
+		console.log(newEmployee);
 	};
 
 	return (
@@ -30,14 +41,13 @@ const makeEmployee = (formData: FormData): Employee => {
 										<label htmlFor='firstname' className='form-label'>
 											Imię
 										</label>
-										<input className='form-control' type='text' id='firstname' name="firstname"/>
+										<input className='form-control' type='text' id='firstname' name='firstname' />
 									</div>
 									<div className='col'>
 										<label htmlFor='lastname' className='form-label col'>
 											Nazwisko
 										</label>
-										<input className='form-control col' type='text' id='lastname'
-                                        name='lastname' />
+										<input className='form-control col' type='text' id='lastname' name='lastname' />
 									</div>
 								</div>
 								<div className='mb-3 row'>
@@ -45,7 +55,7 @@ const makeEmployee = (formData: FormData): Employee => {
 										<label htmlFor='salary' className='form-label'>
 											Pensja
 										</label>
-										<input className='form-control' type='text' id='salary'name='salary' />
+										<input className='form-control' type='text' id='salary' name='salary' />
 									</div>
 									{/* <div className='col'>
 										<label htmlFor='status' className='form-label'>
@@ -79,7 +89,12 @@ const makeEmployee = (formData: FormData): Employee => {
 										<label htmlFor='phonenumber' className='form-label'>
 											Numer telefonu
 										</label>
-										<input className='form-control' type='text' id='phonenumber' name='phonenumber' />
+										<input
+											className='form-control'
+											type='text'
+											id='phonenumber'
+											name='phonenumber'
+										/>
 									</div>
 									<div className='row'>
 										<Link to='/' className='m-4 btn btn-primary col'>
