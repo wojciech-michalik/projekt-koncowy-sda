@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { Employee, EmployeeStatus } from '../HomePage';
+import { Link, useNavigate } from 'react-router-dom';
+import { Employee, EmployeeStatus } from '../HomePage.tsx';
 import { useState } from 'react';
 import SideMenu from './SideMenu';
 
@@ -96,6 +96,11 @@ export function Table(props: { data: Employee[] }) {
 
 					<div className='col ps-4 mt-4'>
 						<h1>Lista pracowników</h1>
+						<div className='d-flex justify-content-end'>
+							<Link to='/add' className='btn-success btn btn-sm'>
+								Dodaj pracownika
+							</Link>
+						</div>
 						<hr className='dividerSolid'></hr>
 						<div className='mb-3'>
 							<input

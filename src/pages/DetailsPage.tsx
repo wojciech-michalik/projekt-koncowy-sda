@@ -4,6 +4,7 @@ import SideMenu from '../components/SideMenu';
 
 export function Details() {
 	const location = useLocation();
+	//TO DO: Improve loading of employee in case it is not passed
 	const data: Employee = location.state;
 
 	return (
