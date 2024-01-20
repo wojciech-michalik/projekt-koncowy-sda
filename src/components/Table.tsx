@@ -6,22 +6,23 @@ import SideMenu from './SideMenu';
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
 	const [sortDirection, setSortDirection] = useState('none');
+	const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
 
-	const sortAsc = (a: Employee, b: Employee): number => {
-		if (a.lastname > b.lastname) {
+	const sortAsc = (a: Employee, b: Employee, key: keyof Employee): number => {
+		if (a[key] > b[key]) {
 			return 1;
 		}
-		if (a.lastname < b.lastname) {
+		if (a[key] < b[key]) {
 			return -1;
 		}
 		return 0;
 	};
 
-	const sortDesc = (a: Employee, b: Employee): number => {
-		if (a.lastname < b.lastname) {
+	const sortDesc = (a: Employee, b: Employee, key: keyof Employee): number => {
+		if (a[key] < b[key]) {
 			return 1;
 		}
-		if (a.lastname > b.lastname) {
+		if (a[key] > b[key]) {
 			return -1;
 		}
 		return 0;
@@ -30,6 +31,7 @@ export function Table(props: { data: Employee[] }) {
 	const handleSortClick = (event: React.MouseEvent, key: keyof Employee): void => {
 		event.preventDefault();
 		let sortedData = [...filteredData];
+		setSortBy(key);
 		if (sortDirection === 'none') {
 			setSortDirection('asc');
 			sortedData = sortedData.sort((a, b) => sortAsc(a, b, key));
@@ -42,6 +44,20 @@ export function Table(props: { data: Employee[] }) {
 		}
 
 		setFilteredData([...sortedData]);
+	};
+
+	const renderSortIcon = (key: keyof Employee): string => {
+		if (key === sortBy) {
+			switch (sortDirection) {
+				case 'asc':
+					return '⬇️';
+				case 'desc':
+					return '⬆️';
+				default:
+					return '';
+			}
+		}
+		return '';
 	};
 
 	const navigate = useNavigate();
@@ -93,16 +109,16 @@ export function Table(props: { data: Employee[] }) {
 							<thead>
 								<tr>
 									<th className='clickable' onClick={event => handleSortClick(event, 'id')}>
-										ID
+										ID {renderSortIcon('id')}
 									</th>
 									<th className='clickable' onClick={event => handleSortClick(event, 'firstname')}>
-										Imię
+										Imię {renderSortIcon('firstname')}
 									</th>
 									<th className='clickable' onClick={event => handleSortClick(event, 'lastname')}>
-										Nazwisko
+										Nazwisko {renderSortIcon('lastname')}
 									</th>
 									<th className='clickable' onClick={event => handleSortClick(event, 'salary')}>
-										Pensja
+										Pensja {renderSortIcon('salary')}
 									</th>
 									<th>Status</th>
 									<th>Szczegółowe dane</th>
