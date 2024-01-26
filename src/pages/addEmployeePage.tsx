@@ -1,29 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SideMenu from '../components/SideMenu';
-import { Employee } from '../HomePage';
+import { createEmployee } from '../services/API';
+import { makeEmployee } from '../services/Employee';
+import { useState } from 'react';
+import { STATUS_OPTIONS, StatusOption } from '../models/StatusOption';
 
 export function AddPage() {
-	const makeEmployee = (formData: FormData): Employee => {
-		return {
-			id: Date.now().toString(),
-			firstname: formData.get('firstname') as string,
-			lastname: formData.get('lastname') as string,
-			birthdate: new Date(formData.get('birthdate') as string),
-			phonenumber: formData.get('phonenumber') as string,
-			address: formData.get('address') as string,
-			city: formData.get('city') as string,
-			postalcode: formData.get('postalcode') as string,
-			salary: +(formData.get('salary') as string),
-			status: 'dostępny',
-		};
-	};
-
+	const navigate = useNavigate();
+	const [statusOption] = useState<StatusOption[]>(STATUS_OPTIONS);
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const newEmployee = makeEmployee(formData);
-		console.log(newEmployee);
+
+		createEmployee(newEmployee)
+			.then(() => {
+				navigate('/');
+			})
+			.catch(error => console.warn(error));
 	};
 
 	return (
@@ -57,12 +52,16 @@ export function AddPage() {
 										</label>
 										<input className='form-control' type='text' id='salary' name='salary' />
 									</div>
-									{/* <div className='col'>
+									<div className='col'>
 										<label htmlFor='status' className='form-label'>
 											Status pracownika
 										</label>
-										<input className='form-control' type='text' id='status' name='status' />
-									</div> */}
+										<select className='form-control' id='status' name='status'>
+											{statusOption.map(item => (
+												<option value={item.value}>{item.label}</option>
+											))}
+										</select>
+									</div>
 								</div>
 								<div className='mb-3 row'>
 									<div className='col'>

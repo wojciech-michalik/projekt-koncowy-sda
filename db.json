@@ -1,0 +1,40 @@
+{
+  "employees": [
+    {
+      "firstname": "Wojtek",
+      "lastname": "Nowak",
+      "birthdate": "1969-12-31T23:00:00.000Z",
+      "phonenumber": "321321321",
+      "address": "Katowicka 23",
+      "city": "Kraków",
+      "postalcode": "50-000",
+      "salary": 10000,
+      "status": "dostępny",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "firstname": "Bartosz",
+      "lastname": "Adamski",
+      "salary": 15000,
+      "status": "l4",
+      "birthdate": "1999-11-01T23:00:00.000Z",
+      "address": "Rybnicka 15",
+      "city": "Gliwice",
+      "postalcode": "44-100",
+      "phonenumber": "423121321"
+    },
+    {
+      "id": "3",
+      "firstname": "Jan",
+      "lastname": "Kowalski",
+      "salary": 5000,
+      "status": "zdalnie",
+      "birthdate": "1958-09-07T23:00:00.000Z",
+      "address": "Warszawska 12",
+      "city": "Wrocław",
+      "postalcode": "30-130",
+      "phonenumber": "123123123"
+    }
+  ]
+}

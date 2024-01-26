@@ -1,12 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Employee, EmployeeStatus } from '../HomePage.tsx';
+import { Employee, EmployeeStatus } from '../models/Employee';
 import { useState } from 'react';
 import SideMenu from './SideMenu';
+import { ConfirmModal } from './Modal';
+import { removeEmployee } from '../services/API';
 
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
 	const [sortDirection, setSortDirection] = useState('none');
 	const [sortBy, setSortBy] = useState<null | keyof Employee>(null);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [selected, setSelected] = useState<string | null>(null);
 
 	const sortAsc = (a: Employee, b: Employee, key: keyof Employee): number => {
 		if (a[key] > b[key]) {
@@ -27,15 +31,20 @@ export function Table(props: { data: Employee[] }) {
 		}
 		return 0;
 	};
-
-	const handleSortClick = (event: React.MouseEvent, key: keyof Employee): void => {
+	const handleHeaderColumnClick = (event: React.MouseEvent, key: keyof Employee): void => {
 		event.preventDefault();
-		let sortedData = [...filteredData];
 		setSortBy(key);
-		if (sortDirection === 'none') {
+		let sortedData = [...filteredData];
+		let tempSortDirection = sortDirection;
+
+		if (key !== sortBy) {
+			tempSortDirection = 'none';
+		}
+
+		if (tempSortDirection === 'none') {
 			setSortDirection('asc');
 			sortedData = sortedData.sort((a, b) => sortAsc(a, b, key));
-		} else if (sortDirection === 'asc') {
+		} else if (tempSortDirection === 'asc') {
 			setSortDirection('desc');
 			sortedData = sortedData.sort((a, b) => sortDesc(a, b, key));
 		} else {
@@ -80,20 +89,76 @@ export function Table(props: { data: Employee[] }) {
 		navigate('/details', { state: item });
 	};
 
+	const handleDeleteClick = (event: React.MouseEvent, id: string): void => {
+		event.preventDefault();
+
+		setSelected(id);
+		setShowDeleteModal(true);
+	};
+
+	const findByPhrase = (columns: string[], item: { [key: string]: string }, phrase: string): boolean => {
+		let result = false;
+		columns.forEach(key => {
+			const field = item[key];
+			if (field.toLowerCase().includes(phrase)) {
+				result = true;
+				return;
+			}
+		});
+		return result;
+	};
+
 	const handleSearchType = (event: React.KeyboardEvent): void => {
 		const input = event.target as HTMLInputElement;
 		const phrase = input.value.toLowerCase();
+		const columns = ['lastname', 'firstname', 'phonenumber', 'address'];
 
-		const data = props.data.filter(item => JSON.stringify(item).toLowerCase().includes(phrase));
+		const data = props.data.filter(item => {
+			// Basic Example
+			// return item.lastname.toLowerCase().includes(phrase)
+			// || item.firstname.toLowerCase().includes(phrase)
+			// || item.phonenumber.includes(phrase)
+
+			// More advanced
+			return findByPhrase(columns, item as unknown as { [key: string]: string }, phrase);
+		});
 		setFilteredData(data);
+	};
+
+	const handleClose = (): void => {
+		setShowDeleteModal(false);
+		setSelected(null);
+	};
+
+	const handleDeleteConfirm = (): void => {
+		const id = selected;
+
+		if (id) {
+			removeEmployee(id)
+				.then(() => {
+					const data = [...props.data].filter(item => item.id !== id);
+					setFilteredData(data);
+
+					handleClose();
+				})
+				.catch(error => console.warn(error));
+		} else {
+			console.warn('No selected employee');
+		}
 	};
 
 	return (
 		<>
+			<ConfirmModal
+				show={showDeleteModal}
+				title='Delete confirmation'
+				description='Are you sure, you want to delete this employee?'
+				onConfirm={handleDeleteConfirm}
+				onCancel={handleClose}
+			/>
 			<div className='container-fluid'>
 				<div className='row'>
 					<SideMenu />
-
 					<div className='col ps-4 mt-4'>
 						<h1>Lista pracowników</h1>
 						<div className='d-flex justify-content-end me-1'>
@@ -113,16 +178,22 @@ export function Table(props: { data: Employee[] }) {
 						<table className='table table-striped'>
 							<thead>
 								<tr>
-									<th className='clickable' onClick={event => handleSortClick(event, 'id')}>
+									<th className='clickable' onClick={event => handleHeaderColumnClick(event, 'id')}>
 										ID {renderSortIcon('id')}
 									</th>
-									<th className='clickable' onClick={event => handleSortClick(event, 'firstname')}>
+									<th
+										className='clickable'
+										onClick={event => handleHeaderColumnClick(event, 'firstname')}>
 										Imię {renderSortIcon('firstname')}
 									</th>
-									<th className='clickable' onClick={event => handleSortClick(event, 'lastname')}>
+									<th
+										className='clickable'
+										onClick={event => handleHeaderColumnClick(event, 'lastname')}>
 										Nazwisko {renderSortIcon('lastname')}
 									</th>
-									<th className='clickable' onClick={event => handleSortClick(event, 'salary')}>
+									<th
+										className='clickable'
+										onClick={event => handleHeaderColumnClick(event, 'salary')}>
 										Pensja {renderSortIcon('salary')}
 									</th>
 									<th>Status</th>
@@ -143,6 +214,11 @@ export function Table(props: { data: Employee[] }) {
 												key={item.id}
 												onClick={event => handleRowClick(event, item)}>
 												<strong>Zobacz szczegóły</strong>
+											</button>
+											<button
+												className='btn btn-danger'
+												onClick={event => handleDeleteClick(event, item.id)}>
+												Delete
 											</button>
 										</td>
 									</tr>

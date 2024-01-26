@@ -1,12 +1,27 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Employee } from '../HomePage';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Employee } from '../models/Employee';
 import SideMenu from '../components/SideMenu';
+import React from 'react';
 
 export function Details() {
 	const location = useLocation();
+	const navigate = useNavigate();
 	//TO DO: Improve loading of employee in case it is not passed
 	const data: Employee = location.state;
 
+	const formatDate = (date: Date): string => {
+		const month = date.getMonth() + 1;
+		const formatedMonth = month < 10 ? '0' + month : month;
+		const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+
+		return date.getFullYear() + '-' + formatedMonth + '-' + day;
+	};
+
+	const handleEditClick = (event: React.MouseEvent, item: Employee): void => {
+		event.preventDefault();
+
+		navigate('/edit', { state: item });
+	};
 	return (
 		<>
 			<div className='container-fluid'>
@@ -77,7 +92,7 @@ export function Details() {
 										className='form-control'
 										type='text'
 										id='birthdate'
-										value={data.birthdate.toLocaleDateString()}
+										value={formatDate(data.birthdate)}
 										readOnly
 									/>
 								</div>
@@ -123,7 +138,9 @@ export function Details() {
 									<Link to='/' className='m-4 btn btn-primary col'>
 										Wróć do poprzedniej strony
 									</Link>
-									<button className='m-4 btn btn-primary col'>Edytuj dane pracownika</button>
+									<button className='btn btn-warning' onClick={event => handleEditClick(event, data)}>
+										Edit
+									</button>
 								</div>
 							</div>
 						</div>
