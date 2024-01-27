@@ -5,6 +5,7 @@ import SideMenu from './SideMenu';
 import { ConfirmModal } from './Modal';
 import { removeEmployee } from '../services/API';
 import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from './LangaugeSelector';
 
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
@@ -163,10 +164,11 @@ export function Table(props: { data: Employee[] }) {
 					<SideMenu />
 					<div className='col ps-4 mt-4'>
 						<h1>{t('pracownicy')}</h1>
-						<div className='d-flex justify-content-end me-1'>
-							<Link to='/add' className='btn-success btn btn-sm'>
+						<div className='d-flex justify-content-end me-1 gap-3'>
+							<Link to='/add' className='btn-success btn btn-sm w-auto'>
 								{t('addbtn')}
 							</Link>
+							<LanguageSelector></LanguageSelector>
 						</div>
 						<hr className='dividerSolid'></hr>
 						<div className='mb-3'>
