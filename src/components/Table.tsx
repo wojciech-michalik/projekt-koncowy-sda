@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SideMenu from './SideMenu';
 import { ConfirmModal } from './Modal';
 import { removeEmployee } from '../services/API';
+import { useTranslation } from 'react-i18next';
 
 export function Table(props: { data: Employee[] }) {
 	const [filteredData, setFilteredData] = useState(props.data);
@@ -146,6 +147,7 @@ export function Table(props: { data: Employee[] }) {
 			console.warn('No selected employee');
 		}
 	};
+	const { t } = useTranslation();
 
 	return (
 		<>
@@ -160,10 +162,10 @@ export function Table(props: { data: Employee[] }) {
 				<div className='row'>
 					<SideMenu />
 					<div className='col ps-4 mt-4'>
-						<h1>Lista pracowników</h1>
+						<h1>{t('pracownicy')}</h1>
 						<div className='d-flex justify-content-end me-1'>
 							<Link to='/add' className='btn-success btn btn-sm'>
-								Dodaj pracownika
+								{t('addbtn')}
 							</Link>
 						</div>
 						<hr className='dividerSolid'></hr>
@@ -225,6 +227,7 @@ export function Table(props: { data: Employee[] }) {
 								))}
 							</tbody>
 						</table>
+						<p>{t('znaleziono', { count: filteredData.length })}</p>
 					</div>
 				</div>
 			</div>

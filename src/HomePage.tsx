@@ -35,11 +35,7 @@ function HomePage() {
 			});
 	}, []);
 
-	return (
-		<>
-			<Table data={data}></Table>
-		</>
-	);
+	return <>{data.length > 0 ? <Table data={data}></Table> : ''}</>;
 }
 
 export default HomePage;
