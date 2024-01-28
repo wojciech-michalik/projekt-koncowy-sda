@@ -1,16 +1,4 @@
-:root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
-
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 .clickable {
 	cursor: pointer;
@@ -18,4 +6,16 @@
 
 .dividerSolid {
 	border-top: 3px solid #bbb;
+}
+
+a.nav-link {
+	color: black;
+}
+
+a.nav-link.active {
+	color: white !important;
+}
+
+#root {
+	font-family: 'Poppins', sans-serif;
 }

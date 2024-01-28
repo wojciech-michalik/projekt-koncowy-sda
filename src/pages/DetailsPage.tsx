@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Employee } from '../models/Employee';
 import SideMenu from '../components/SideMenu';
-import React from 'react';
+import React, { useState } from 'react';
 
 export function Details() {
 	const location = useLocation();
@@ -22,11 +22,18 @@ export function Details() {
 
 		navigate('/edit', { state: item });
 	};
+
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
 	return (
 		<>
 			<div className='container-fluid'>
 				<div className='row'>
-					<SideMenu />
+					<SideMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 					<div className='col mt-4 pe-4 ps-4'>
 						<h1>Szczegóły pracownika</h1>
 						<hr className='dividerSolid'></hr>
@@ -134,15 +141,18 @@ export function Details() {
 										readOnly
 									/>
 								</div>
-								<div className='row'>
-									<Link to='/' className='m-4 btn btn-primary col'>
-										Wróć do poprzedniej strony
-									</Link>
-									<button className='btn btn-warning' onClick={event => handleEditClick(event, data)}>
-										Edit
-									</button>
-								</div>
 							</div>
+						</div>
+						<div className='row gap-4 p-4 justify-content-evenly'>
+							<Link to='/' className='btn btn-primary col' style={{ maxWidth: '250px' }}>
+								Wróć do poprzedniej strony
+							</Link>
+							<button
+								className='btn btn-warning col'
+								onClick={event => handleEditClick(event, data)}
+								style={{ maxWidth: '250px' }}>
+								Edit
+							</button>
 						</div>
 					</div>
 				</div>

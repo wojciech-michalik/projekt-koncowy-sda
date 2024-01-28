@@ -213,17 +213,19 @@ export function Table(props: { data: Employee[] }) {
 										<td>{item.salary}</td>
 										<td>{renderStatus(item.status)}</td>
 										<td>
-											<button
-												className='clickable btn btn-outline-dark btn-sm'
-												key={item.id}
-												onClick={event => handleRowClick(event, item)}>
-												<strong>Zobacz szczegóły</strong>
-											</button>
-											<button
-												className='btn btn-danger'
-												onClick={event => handleDeleteClick(event, item.id)}>
-												Delete
-											</button>
+											<div className=' d-flex gap-3'>
+												<button
+													className='clickable btn btn-outline-dark btn-sm'
+													key={item.id}
+													onClick={event => handleRowClick(event, item)}>
+													<strong>Zobacz szczegóły</strong>
+												</button>
+												<button
+													className='btn btn-danger btn-sm'
+													onClick={event => handleDeleteClick(event, item.id)}>
+													Delete
+												</button>
+											</div>
 										</td>
 									</tr>
 								))}

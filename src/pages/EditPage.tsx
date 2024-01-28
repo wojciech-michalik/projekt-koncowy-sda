@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Employee } from '../models/Employee';
 import { STATUS_OPTIONS, StatusOption } from '../models/StatusOption';
 import { useState } from 'react';
@@ -40,11 +40,17 @@ export function EditPage() {
 		setFormData({ ...newFormData });
 	};
 
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
 	return (
 		<>
 			<div className='container-fluid'>
 				<div className='row'>
-					<SideMenu />
+					<SideMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 					<div className='col mt-3 ps-4'>
 						<h3>{t('edytujPracownika')}</h3>
 						<hr className='dividerSolid'></hr>
@@ -174,11 +180,14 @@ export function EditPage() {
 								</div>
 							</div>
 
-							<footer>
-								<button type='submit' className='btn btn-primary'>
+							<div className='row gap-4 justify-content-evenly'>
+								<button type='submit' className='btn btn-primary col' style={{ maxWidth: '250px' }}>
 									Save
 								</button>
-							</footer>
+								<Link to='/' className='btn btn-primary col ' style={{ maxWidth: '250px' }}>
+									Wróć do poprzedniej strony
+								</Link>
+							</div>
 						</form>
 					</div>
 				</div>
